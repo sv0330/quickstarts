@@ -3,17 +3,12 @@
 :page-author: Sudha vedula
 :page-email: sudha.vedula@teradata.com
 :page-revdate: October 27th, 2022
-:description: Teradata® Query Service is a middleware that provides REST APIs for relational Databases, including Teradata Database, Aster, and Hive.
+:description: Teradata® Query Service is a middleware that provides REST APIs for Vantage.
 :keywords: query service, teradata, vantage, query,
 
 == Overview
 
-Query Service provides APIs to:
-
-.   Configure Teradata-supported systems
-.	Submit SQL queries and access responses
-.	Create database sessions
-.	Access database and object metadata
+Teradata Query Service is a REST API for Vantage that you can use to run standard SQL statements without managing client-side drivers. Use Query Service if you are looking to query and access the Teradata database through a REST API.
 
 This How-To guide provides examples of common Query Service use cases to help you get started with using the Query Service API.
 
@@ -21,7 +16,7 @@ This How-To guide provides examples of common Query Service use cases to help yo
 
 Before starting, make sure you have:
 
-*	Query Service is installed and configured . See link:https://docs.teradata.com/r/Teradata-Query-Service-Installation-Configuration-and-Usage-Guide-for-Customers/April-2022[Query Service Installation, Configuration, and Usage Guide]
+*	Access to VantageCloud where Query Service is provisioned [VantageCloud user] or installed and configured Query Service [Vantage Core user] . See link:https://docs.teradata.com/r/Teradata-Query-Service-Installation-Configuration-and-Usage-Guide-for-Customers/April-2022[Query Service Installation, Configuration, and Usage Guide]
 *	Access to Query Service hostname and system name
 * Authorization credentials to connect to the database
 
@@ -276,6 +271,7 @@ Use asynchronous queries when a system or network performance is affected by que
 Send a POST request to the /system/<systemName>/queries endpoint. 
 
 In the following example, the request includes:
+
 * The URL, https:// <QS_HOSTNAME>:1443/.
 * The query SELECT * FROM DBC.DBCInfo to the system with the alias "<systemName>".
 * The format for response ("format": "OBJECT").  
