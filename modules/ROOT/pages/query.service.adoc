@@ -8,7 +8,7 @@
 
 == Overview
 
-Teradata Query Service is a REST API for Vantage that you can use to run standard SQL statements without managing client-side drivers. Use Query Service if you are looking to query and access the Teradata database through a REST API.
+Teradata Query Service is a REST API for Vantage that you can use to run standard SQL statements without managing client-side drivers. Use Query Service if you are looking to query and access the Analytics Database through a REST API.
 
 This How-To guide provides examples of common use cases to help you get started with Query Service API.
 
@@ -43,7 +43,7 @@ Having trouble with the prerequisites? Contact Teradata for setup information.
 
 === Connecting to your  Query Service instance
 
-Provide valid credentials to access the target Teradata database using HTTP Basic or JWT authentication. 
+Provide valid credentials to access the target Analytics Database using HTTP Basic or JWT authentication. 
 
 The database username and password are combined into a string (``"username : password"``) which is then encoded using Base64. The API response contains the authorization method and encoded credentials.
 
@@ -134,7 +134,7 @@ For response parameters, see link:https://docs.teradata.com/r/Teradata-Query-Ser
 
 To return an API response in CSV format, set the ``*format*`` field in the request with the value ``*CSV*``.
 
-The CSV format does not contain response metadata but only the query results. The response contains a line for each row, where each line contains the row columns separated by a comma. The following example returns the data as comma-separated values.
+The CSV format contains only the query results and not response metadata. The response contains a line for each row, where each line contains the row columns separated by a comma. The following example returns the data as comma-separated values.
 
 ===== Request
 
@@ -415,10 +415,7 @@ You have successfully completed learning how to make API calls using Query Servi
 Interested in learning more about Query Service? Here are some resources you can use:
 
 * For features, examples, and references: link:https://docs.teradata.com/r/Teradata-Query-Service-Installation-Configuration-and-Usage-Guide-for-Customers/April-2022[Query Service Installation, Configuration, and Usage Guide]
-* For API reference: 
-** link:https://downloads.teradata.com/api/teradata_query_service[API Reference Guide]
-** On link:https://docs.teradata.com/[Teradata Documentation Portal], you can download the following resources from the attachment in the left sidebar:
-*** Query Service Swagger API Documentation
-*** OpenAPI Specification
+* For API reference: link:https://downloads.teradata.com/api/teradata_query_service[API Reference Guide]
+
 
 
