@@ -10,7 +10,7 @@
 
 Teradata Query Service is a REST API for Vantage that you can use to run standard SQL statements without managing client-side drivers. Use Query Service if you are looking to query and access the Teradata database through a REST API.
 
-This How-To guide provides examples of common Query Service use cases to help you get started with Query Service API.
+This How-To guide provides examples of common use cases to help you get started with Query Service API.
 
 == Prerequisites
 
@@ -34,9 +34,12 @@ Having trouble with the prerequisites? Contact Teradata for setup information.
 === Using the examples
 
 * The examples in this document use Python, and you can use these to create examples in your language of choice.
-* The examples provided here are complete and ready for you to use, although most require a little customization. Replace the following variables with your own value:
-** ``<QS_HOSTNAME>``: Server where Query Service is installed
-** ``<systemName> ``: Preconfigured alias of the system
+* The examples provided here are complete and ready for you to use, although most require a little customization. 
+** The examples in this document use the URL __https:// ``<QS_HOSTNAME>``:1443/__.
+** Replace the following variables with your own value:
+*** ``<QS_HOSTNAME>``: Server where Query Service is installed
+*** ``<systemName>``: Preconfigured alias of the system
+
 
 === Connecting to your  Query Service instance
 
@@ -84,19 +87,18 @@ Send a POST request to the `/system/``<systemName>``/queries` endpoint.
 
 In the following example, the request includes:
 
-* The URL, __https:// ``<QS_HOSTNAME>``:1443/__.
-* The query SELECT * FROM DBC.DBCInfo to the system with the alias ``<systemName>``.
-* The format for response (``"format": "OBJECT"``). The formats supported are: JSON object, JSON array, and CSV. 
+* SELECT * FROM DBC.DBCInfo: The query to the system with the alias ``<systemName>``.
+* (``"format": "OBJECT"``): The format for response. The formats supported are: JSON object, JSON array, and CSV. 
 +
 The JSON object format creates one JSON object per row where the column name is the field name, and the column value is the field value.
 +
-* The request to include column metadata, such as column names and types, in the response (``"includeColumns": true``).
-* The number of rows to be returned from a query (``“rowLimit” : 4``).
+* (``"includeColumns": true``): The request to include column metadata, such as column names and types, in the response.
+* (``“rowLimit” : 4``): The number of rows to be returned from a query.
 
 ===== Request
 
 ----
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries"
 
 payload = {
 "query":example_query, # "SELECT * FROM DBC.DBCInfo;",
@@ -132,14 +134,14 @@ For response parameters, see link:https://docs.teradata.com/r/Teradata-Query-Ser
 
 To return an API response in CSV format, set the ``*format*`` field in the request with the value ``*CSV*``.
 
-The CSV format does not contain response metadata but only the query results. The response contains a line for each row, where each line contains the row columns separated by a comma. In the following example, the data is returned as comma-separated values.
+The CSV format does not contain response metadata but only the query results. The response contains a line for each row, where each line contains the row columns separated by a comma. The following example returns the data as comma-separated values.
 
 ===== Request
 
 ----
 # CSV with all rows included
 
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries"
 
 payload = {
 "query":example_query, # "SELECT * FROM DBC.DBCInfo;",
@@ -201,14 +203,13 @@ The request creates a new database session and returns the session details as th
 
 In the following example, the request includes:
 
-* The URL, __https:// ``<QS_HOSTNAME>``:1443/__. 
-* The request to commit the query upon completion (``“auto_commit” : True``).
+* (``“auto_commit” : True``): The request to commit the query upon completion.
 
 ====== Request
 
 ----
 # first create a session
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/sessions"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/sessions"
 
 payload = {
   "auto_commit": True
@@ -242,16 +243,15 @@ The request submits queries to the target system and returns the release and ver
 
 In the following example, the request includes:
 
-* The URL, __https:// ``<QS_HOSTNAME>``:1443/__.
-* The query SELECT * FROM DBC.DBCInfo to the system with the alias ``<systemName>``.
-* The format for response (``"format": "OBJECT"``).  
-* The session ID (``“Session” : <Session ID>``) returned in Step 1 to create an explicit session.
+* SELECT * FROM DBC.DBCInfo: The query to the system with the alias ``<systemName>``.
+* (``"format": "OBJECT"``): The format for response.  
+* (``“Session” : <Session ID>``): The session ID returned in Step 1 to create an explicit session.
 
 ====== Request
 ----
 # use this session to submit queries afterwards
 
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries"
 
 payload = {
 
@@ -281,16 +281,15 @@ Send a POST request to the `/system/``<systemName>``/queries` endpoint.
 
 In the following example, the request includes:
 
-* The URL, __https:// ``<QS_HOSTNAME>``:1443/__.
-* The query SELECT * FROM DBC.DBCInfo to the system with the alias ``<systemName>``.
-* The format for response (``"format": "OBJECT"``).  
-* The indication that the request is asynchronous (``“spooled_result_set” : True``).
+* SELECT * FROM DBC.DBCInfo: The query to the system with the alias ``<systemName>``.
+* (``"format": "OBJECT"``): The format for response.  
+* (``“spooled_result_set” : True``): The indication that the request is asynchronous.
 
 ====== Request
 ----
 ## Run async query .
 
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries"
 
 payload = {
 
@@ -320,7 +319,7 @@ The request returns the details of the specific query, including ``*queryState*`
 ----
 ## response for async query .
 
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries/1366025"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries/1366025"
 
 
 payload_json = json.dumps(payload)
@@ -339,7 +338,7 @@ The request returns an array of the result sets and update counts produced by th
 
 ====== Request
 ----
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries/1366025/results"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries/1366025/results"
 
 payload_json = json.dumps(payload)
 response = requests.request("GET", url, headers=headers, verify=False)
@@ -358,7 +357,7 @@ The request returns the IDs of active queries.
 
 ===== Request
 ----
-url = "https://``<QS_HOSTNAME>``:1443/systems/``<systemName>``/queries"
+url = "https://<QS_HOSTNAME>:1443/systems/<systemName>/queries"
 
 payload={}
 
@@ -416,9 +415,10 @@ You have successfully completed learning how to make API calls using Query Servi
 Interested in learning more about Query Service? Here are some resources you can use:
 
 * For features, examples, and references: link:https://docs.teradata.com/r/Teradata-Query-Service-Installation-Configuration-and-Usage-Guide-for-Customers/April-2022[Query Service Installation, Configuration, and Usage Guide]
-* For frequently asked questions: <Link to FAQ>
-* For API reference: On link:https://docs.teradata.com/[Teradata Documentation Portal], you can download the following resources from the attachment in the left sidebar:
-** Query Service Swagger API Documentation
-** OpenAPI Specification
+* For API reference: 
+** link:https://downloads.teradata.com/api/teradata_query_service[API Reference Guide]
+** On link:https://docs.teradata.com/[Teradata Documentation Portal], you can download the following resources from the attachment in the left sidebar:
+*** Query Service Swagger API Documentation
+*** OpenAPI Specification
 
 
